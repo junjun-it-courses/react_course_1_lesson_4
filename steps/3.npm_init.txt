@@ -1,0 +1,44 @@
+Сначала нам нужно создать папку с проектом
+
+
+project
+    - file1.txt
+    - file2.txt
+
+Далее открываем консоль в этой папке и выполняем команду
+npm init.
+
+> npm init
+
+Вывод
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (project)
+
+
+В процессе инициализации, npm задаст несколько вопросов на тему того как должен
+называться проект, какая у него должна быть версия, описание и тому подобное.
+Все эти вопросы можно смело пропускать, у вас всегда будет возможность поменять
+ответы.
+
+В конце npm спросит все ли правильно и покажет содержимое файла package.json,
+который и станет основой нового проекта. После ответа yes этот файл запишется на
+диск и проект будет считаться готовым к работе.
+
+См. пример в файле ../files/package-example.json
+
+
+После завершения процесса инициализации, можно приступать к самому главному —
+написанию кода. По умолчанию код создается внутри файла index.js, лежащего
+в корне проекта (там, где создан файл package.json). Это не значит, что весь
+пакет состоит из одного файла. Файлов с кодом можно создавать сколько угодно,
+главное, при этом, что основная работа происходит внутри index.js, куда
+импортируется код из остальных файлов.

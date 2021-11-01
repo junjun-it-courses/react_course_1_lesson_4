@@ -1,0 +1,98 @@
+У кода есть множество разных характеристик, по которым можно судить,
+насколько хорошо он написан. Среди них есть одна базовая, с которой
+начинают все разработчики – это стиль написания.
+
+// Без форматирования
+const  find_sum = (a,b) =>
+{
+const c = a+b; return c;
+}
+
+
+// С форматированием
+const findSum = (a, b) => {
+  const sum = a + b;
+  return sum;
+}
+
+Второй вариант читается значительно проще. Чем больше будет кода,
+тем больше будет различий. Хороший стиль кодирования – базовое требование
+к коду в коммерческой разработке.
+
+Универсальным решением этой задачи сейчас стала утилита prettier,
+которая берет весь код в файле и полностью переформатирует его так
+как нужно в соответствии со своими правилами.
+
+Но prettier только форматирует код, не вникая в его семантику, и не может
+например заменить == на === и тд.
+
+Для того чтобы весь код был написан в одном стиле, а не только красиво
+отформатирован были придуманы линтеры, которые помогают гибко настроить
+тот стиль написания кода которого вы должны будете придерживаться
+
+JavaScript-мире особой популярностью пользуется линтер eslint.
+
+Пример:
+let a = 5;
+a++;
+
+Пропустим это код через линтер:
+Вывод:
+    Identifier name 'a' is too short id-length. Слишком короткое имя.
+    Unary operator '++' used no-plusplus. Используется инкремент,
+    что опасно.
+    'a' is assigned a value but never used no-unused-vars.
+    Переменная не используется, а значит она либо не нужна,
+    либо в коде ошибка.
+
+Установим линтер как дев зависимость в проект:
+> npm install --save-dev eslint
+
+После установки его надо настроить, иначе он не будет выполнять проверки.
+Для этого нужно запустить команду инициализации. Во время настройки
+eslint задаст много разных вопросов. Ниже примеры ответов, которые
+подходят в нашей ситуации:
+
+hexlet-js$ npx eslint --init
+
+✔ How would you like to use ESLint? · style
+✔ What type of modules does your project use? · esm (JS Modules)
+✔ Which framework does your project use? · none
+✔ Does your project use TypeScript? · No
+✔ Where does your code run? · Node
+✔ How would you like to define a style for your project? · guide
+✔ Which style guide do you want to follow? · airbnb
+✔ What format do you want your config file to be in? · YAML
+Checking peerDependencies of eslint-config-airbnb-base@latest
+The config that you've selected requires the following dependencies:
+
+eslint-config-airbnb-base@latest eslint@^5.16.0 || ^6.8.0 || ^7.2.0 eslint-plugin-import@^2.21.2
+✔ Would you like to install them now with npm? · Yes
+
+
+Один из главных вопросов во время установки – каким стилевым
+стандартом мы будем пользоваться. На текущий момент самый популярный это
+airbnb.
+
+В результате настройки eslint создаст файл, который нужно добавить
+в репозиторий:
+
+# .eslintrc.yml
+env:
+  browser: true
+  es2020: true
+extends:
+  - airbnb-base
+parserOptions:
+  ecmaVersion: 11
+  sourceType: module
+rules: {}
+
+И последний шаг – запуск eslint:
+
+# Обратите внимание на точку, это указание текущей директории
+и всех поддиректорий
+> npx eslint .
+
+Если ошибок нет, то eslint молча завершит свою работу.
+Если ошибки есть – выведет список с указанием того, что нужно поправить.
